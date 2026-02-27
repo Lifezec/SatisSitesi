@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NOVA. | Elite Storefront</title>
+
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="NOVA - Elite curated storefront for high-performance luxury products.">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- External Libraries (CDN) -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Style -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Navbar -->
+    <!-- 1. NAVIGATION -->
     <nav class="navbar">
-        <div class="container nav-container">
+        <div class="container nav-wrap">
             <a href="#" class="logo">NOVA<span>.</span></a>
-            
+
             <div class="nav-links">
                 <a href="#collection" data-t="nav_catalog">Catalog</a>
                 <a href="#collection" data-t="nav_new">New Arrivals</a>
@@ -29,58 +38,60 @@
 
             <div class="nav-actions">
                 <button id="lang-toggle" class="btn-circle">EN</button>
-                <button class="btn-icon"><i data-lucide="search"></i></button>
-                <button id="cart-btn" class="btn-icon relative">
-                    <i data-lucide="shopping-bag"></i>
-                    <span id="cart-badge" class="badge">0</span>
-                </button>
-                <button id="auth-btn" class="btn-icon"><i data-lucide="user"></i></button>
-                <button class="btn-icon mobile-menu"><i data-lucide="menu"></i></button>
+                <div class="action-items">
+                    <button id="cart-btn" class="btn-icon">
+                        <i data-lucide="shopping-bag"></i>
+                        <span id="cart-badge" class="badge">0</span>
+                    </button>
+                    <button id="auth-btn" class="btn-icon"><i data-lucide="user"></i></button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
+    <!-- 2. HERO SECTION -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
             <span class="hero-tag" data-t="hero_new_col">New Collection 2026</span>
             <h1 class="hero-title">
                 <span data-t="hero_title_1">ELEVATE YOUR</span><br>
-                <span class="text-outline" data-t="hero_title_2">LIFESTYLE</span>
+                <span class="outline-text" data-t="hero_title_2">LIFESTYLE</span>
             </h1>
             <p class="hero-desc" data-t="hero_desc">
-                Discover a curated selection of high-performance products designed for the elite. Merging technology with unparalleled aesthetics.
+                Discover a curated selection of high-performance products designed for the elite. Merging technology
+                with unparalleled aesthetics.
             </p>
-            <div class="hero-btns">
+            <div class="hero-actions">
                 <a href="#collection" class="btn-luxury">
-                    <span data-t="btn_shop">Shop Collections</span> <i data-lucide="arrow-right"></i>
+                    <span data-t="btn_shop">Shop Collections</span>
+                    <i data-lucide="arrow-right"></i>
                 </a>
                 <button class="btn-outline" data-t="btn_watch">Watch Film</button>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Collection -->
-    <section id="collection" class="collection">
+    <!-- 3. COLLECTION SECTION -->
+    <main id="collection" class="collection">
         <div class="container">
             <div class="section-header">
-                <div>
-                    <h2 class="section-title" data-t="section_title">The Collection</h2>
-                    <p id="items-count" class="section-desc">Showing 9 curated items</p>
+                <div class="header-titles">
+                    <h2 class="title-main" data-t="section_title">The Collection</h2>
+                    <p id="items-count" class="title-sub">Showing elite essentials</p>
                 </div>
 
-                <div class="filters">
-                    <div id="category-btns" class="filter-group">
-                        <button class="filter-btn active" data-cat="All" data-t="cat_all">All</button>
-                        <button class="filter-btn" data-cat="Timepieces" data-t="cat_timepieces">Timepieces</button>
-                        <button class="filter-btn" data-cat="Tech" data-t="cat_tech">Tech</button>
-                        <button class="filter-btn" data-cat="Audio" data-t="cat_audio">Audio</button>
+                <div class="header-controls">
+                    <div id="category-btns" class="filter-pill-group">
+                        <button class="filter-pill active" data-cat="All" data-t="cat_all">All</button>
+                        <button class="filter-pill" data-cat="Timepieces" data-t="cat_timepieces">Timepieces</button>
+                        <button class="filter-pill" data-cat="Tech" data-t="cat_tech">Tech</button>
+                        <button class="filter-pill" data-cat="Audio" data-t="cat_audio">Audio</button>
                     </div>
 
-                    <div class="sort-group">
+                    <div class="sort-wrap">
                         <span data-t="sort_by">Sort by</span>
-                        <select id="sort-select">
+                        <select id="sort-select" class="sort-dropdown">
                             <option value="Featured" data-t="featured">Featured</option>
                             <option value="LowToHigh" data-t="price_low">Price: Low to High</option>
                             <option value="HighToLow" data-t="price_high">Price: High to Low</option>
@@ -90,74 +101,98 @@
             </div>
 
             <div id="product-grid" class="product-grid">
-                <!-- Products injected by JS -->
-            </div>
-
-            <div class="load-more">
-                <button class="btn-outline" data-t="load_more">Load More Products</button>
+                <!-- Products dynamically injected -->
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Cart Drawer -->
+    <!-- 4. CART DRAWER -->
     <div id="cart-overlay" class="overlay"></div>
-    <div id="cart-drawer" class="drawer">
+    <aside id="cart-drawer" class="drawer">
         <div class="drawer-header">
-            <div class="flex items-center gap-3">
-                <i data-lucide="shopping-bag" class="text-accent"></i>
+            <div class="drawer-title-wrap">
+                <i data-lucide="shopping-bag" class="text-gold"></i>
                 <h2 data-t="cart_title">Your Bag</h2>
-                <span id="drawer-count" class="pill">0</span>
+                <span id="drawer-count" class="count-badge">0</span>
             </div>
-            <button id="cart-close" class="btn-icon"><i data-lucide="x"></i></button>
+            <button id="cart-close" class="btn-icon-close"><i data-lucide="x"></i></button>
         </div>
+
         <div id="cart-items" class="drawer-content">
             <!-- Items injected by JS -->
         </div>
+
         <div class="drawer-footer">
-            <div class="total-row">
+            <div class="total-line">
                 <span data-t="cart_total">Total</span>
                 <span id="cart-total">$0</span>
             </div>
-            <button class="btn-checkout" data-t="cart_checkout">Checkout Securely →</button>
-            <p class="shipping-note" data-t="cart_shipping">Free Worldwide Shipping on all Elite orders</p>
+            <button class="btn-checkout wide" data-t="cart_checkout">Checkout Securely →</button>
+            <p class="shipping-info" data-t="cart_shipping">Free Worldwide Shipping on all Elite orders</p>
         </div>
-    </div>
+    </aside>
 
-    <!-- Auth Modal -->
+    <!-- 5. AUTH MODAL -->
     <div id="auth-overlay" class="modal-overlay">
         <div class="modal">
-            <button id="auth-close" class="modal-close"><i data-lucide="x"></i></button>
-            <div id="auth-login" class="auth-view">
-                <h2 data-t="auth_login">WELCOME BACK</h2>
-                <p data-t="auth_login_desc">Enter your credentials to access your luxury suite.</p>
-                <form class="auth-form">
-                    <div class="field">
+            <button id="auth-close" class="btn-modal-close"><i data-lucide="x"></i></button>
+
+            <!-- Login View -->
+            <div id="auth-login" class="auth-box">
+                <h2 data-t="auth_login" class="auth-title">WELCOME BACK</h2>
+                <p data-t="auth_login_desc" class="auth-desc">Enter credentials to access your luxury suite.</p>
+                <form class="auth-form login-form">
+                    <div class="input-group">
                         <label data-t="auth_email">Email Address</label>
                         <input type="email" placeholder="name@example.com" required>
                     </div>
-                    <div class="field">
+                    <div class="input-group">
                         <label data-t="auth_pass">Password</label>
                         <input type="password" placeholder="••••••••" required>
                     </div>
                     <button type="submit" class="btn-luxury wide" data-t="auth_signin">Sign In</button>
                 </form>
-                <div class="auth-box">
+                <div class="social-auth">
                     <span data-t="auth_or">Or continue with</span>
-                    <div class="social-btns">
-                        <button class="social-btn">Google</button>
-                        <button class="social-btn">Github</button>
+                    <div class="social-grid single">
+                        <button class="btn-social">Google</button>
                     </div>
                 </div>
-                <p class="auth-switch">
+                <p class="switch-view">
                     <span data-t="auth_no_acc">Don't have an account?</span>
-                    <a href="#" id="to-register" data-t="auth_signup">Sign up</a>
+                    <a href="javascript:void(0)" id="to-register" data-t="auth_signup" class="text-gold">Sign up</a>
+                </p>
+            </div>
+
+            <!-- Register View -->
+            <div id="auth-register" class="auth-box" style="display: none;">
+                <h2 data-t="auth_signup" class="auth-title">JOIN THE ELITE</h2>
+                <p data-t="auth_reg_desc" class="auth-desc">Start your journey into high-performance luxury.</p>
+                <form class="auth-form register-form">
+                    <div class="input-group">
+                        <label data-t="auth_fullname">Full Name</label>
+                        <input type="text" placeholder="John Doe" required>
+                    </div>
+                    <div class="input-group">
+                        <label data-t="auth_email">Email Address</label>
+                        <input type="email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label data-t="auth_pass">Password</label>
+                        <input type="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-luxury wide" data-t="auth_create">Create Account</button>
+                </form>
+                <p class="switch-view">
+                    <span data-t="auth_has_acc">Already have an account?</span>
+                    <a href="javascript:void(0)" id="to-login" data-t="auth_signin" class="text-gold">Sign in</a>
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Main Application Script -->
     <script src="app.js"></script>
 </body>
+
 </html>
